@@ -12,7 +12,6 @@ public class Mouse extends Entity implements Runnable {
     Thread mouseThread;
     Random random;
     private boolean alive;
-    private int moveCounter;
     private int moveInterval;
     private int directionCounter;
     
@@ -22,7 +21,6 @@ public class Mouse extends Entity implements Runnable {
         this.worldY = startY;
         this.random = new Random();
         this.alive = true;
-        this.moveCounter = 0;
         this.moveInterval = 60;
         this.directionCounter = 0;
         setDefaultValues();

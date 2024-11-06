@@ -60,7 +60,7 @@ public class TileMap {
                     String[] values = line.split(",");
                     int col = 0;
                     
-//                    System.out.println(values.length);
+                    //System.out.println(values.length);
                     for (int i = 0; i < values.length; i++) {
                         int temp = Integer.parseInt(values[i]);
                         mapData[layer][row][col++] = temp;
