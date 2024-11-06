@@ -100,8 +100,10 @@ public class TileMap {
             for(int row = startRow; row < endRow+1; row++){
                 for(int col = startCol; col < endCol+1; col++){
                     int tileNum = mapData[layer][row][col];
+                    
                     // skip empty tiles
                     if (tileNum == -1) continue;
+                    
                     // calculate screen position
                     int screenX = col * tileSize - worldStartX;
                     int screenY = row * tileSize - worldStartY;
