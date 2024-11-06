@@ -1,6 +1,4 @@
-
 package main;
-
 
 import tile.TileMap;
 
@@ -42,7 +40,6 @@ public class Collision {
                 }
             }
         }
-        
         return false;
     }
     

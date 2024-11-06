@@ -39,13 +39,12 @@ public class GamePanel extends JPanel implements Runnable {
     public Cat cat = new Cat(this, keyH);
     public MouseManager mouseManager;
     public TileMap tileMap;
-
     public Collision collisionChecker;
 
     // Game States
     public enum GameState { TITLE, PLAYING, FINISHED, LEVEL_COMPLETED }
     public GameState gameState = GameState.TITLE;
-    
+    // Setting for each level
     public int level = 1;
     private int timeRemaining = 120; // 60 second
     public int targetMicePerLevel = 20;
@@ -78,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                 if (e.getButton() != MouseEvent.BUTTON1) return;
+                if (e.getButton() != MouseEvent.BUTTON1) return;
                 int mouseX = e.getX();
                 int mouseY = e.getY();
 
@@ -97,17 +96,14 @@ public class GamePanel extends JPanel implements Runnable {
                     
                 } else if (gameState == GameState.LEVEL_COMPLETED) {
                 // Continue button
-                if (mouseX >= continueButtonX && mouseX <= continueButtonX + buttonWidth &&
-                    mouseY >= continueButtonY && mouseY <= continueButtonY + buttonHeight) {
-                    startNextLevel();
+                    if (mouseX >= continueButtonX && mouseX <= continueButtonX + buttonWidth &&
+                        mouseY >= continueButtonY && mouseY <= continueButtonY + buttonHeight) {
+                        startNextLevel();
+                    }
                 }
-            }
-            }
-            
+            } 
         });
     }
-    
-    
 
     private void startGame() {
         gameState = GameState.PLAYING;
@@ -115,18 +111,16 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGameThread() {
-            gameThread = new Thread(this);
-            updateThread = new Thread(() -> {
+        gameThread = new Thread(this);
+        updateThread = new Thread(() -> {
             double delta = 0;
             double drawInterval = 1000000000/FPS;
             long currentTime;
             long lastTime = System.nanoTime();
             while (updateThread != null) {
                 currentTime = System.nanoTime();
-
                 delta += (currentTime - lastTime) / drawInterval;
                 lastTime = currentTime;
-
                 if (delta >= 1) {
                     update();
                     delta--;
@@ -143,20 +137,20 @@ public class GamePanel extends JPanel implements Runnable {
     
     private void startNextLevel() {
     // Prepare for the next level
-    level++;
-    if (level <= 3) {
-        cat.score = 0;
-        timeRemaining = 120 - (level * 10);
-        targetMicePerLevel += 10;
-        mouseManager.spawnedMiceCount = 0;
-        tileMap.changeLevel(level);
-        cat.worldX = 1500;
-        cat.worldY = 1500;
-        gameState = GameState.PLAYING; // Resume playing
-    } else {
-        gameState = GameState.FINISHED; // End the game if max level is reached
+        level++;
+        if (level <= 3) {
+            cat.score = 0;
+            timeRemaining = 120 - (level * 10);
+            targetMicePerLevel += 10;
+            mouseManager.spawnedMiceCount = 0;
+            tileMap.changeLevel(level);
+            cat.worldX = 1500;
+            cat.worldY = 1500;
+            gameState = GameState.PLAYING; // Resume playing
+        } else {
+            gameState = GameState.FINISHED; // End the game if max level is reached
+        }
     }
-}
 
     @Override
     public void run() {
@@ -207,7 +201,6 @@ public class GamePanel extends JPanel implements Runnable {
         if(timeRemaining <= 0){
            levelFailed();
         } 
-       
     }
     
     public void drawTimer(Graphics2D g2){
@@ -314,7 +307,6 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawImage(finishedBg, -290, -400, null);
             g2.drawImage(catFinished, screenWidth/2-256,screenHeight/2-256, 512,512,this);
         }
-
         g2.dispose();
     }
 }

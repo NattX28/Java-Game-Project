@@ -7,7 +7,6 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 
-
 public class Mouse extends Entity implements Runnable {
     GamePanel gp;
     Thread mouseThread;
@@ -16,7 +15,6 @@ public class Mouse extends Entity implements Runnable {
     private int moveCounter;
     private int moveInterval;
     private int directionCounter;
-    
     
     public Mouse(GamePanel gp, int startX, int startY){
         this.gp = gp;
@@ -72,7 +70,6 @@ public class Mouse extends Entity implements Runnable {
         }
     }
     
-    
     private void startMouseThread() {
         mouseThread = new Thread(this);
         mouseThread.start();
@@ -101,148 +98,107 @@ public class Mouse extends Entity implements Runnable {
         if(gp.getGameState() == GamePanel.GameState.PLAYING){
             if(!alive) return;
             
-        //Save previous position for colission checking
-        int prevX = worldX;
-        int prevY = worldY;
-        // Move based on current direction
-        if (gp.mouseManager.checkCatCollision(gp.cat.worldX, gp.cat.worldY, gp.tileSize)) {
-            // Cat is in the way, so change direction
-            changeDirection();
-        }else{
-            switch(direction){
-            case "up" : 
-                this.worldY -= speed + gp.cat.moveY;
-                 this.worldX += gp.cat.moveX;
-                break;
-            case "down" : 
-                this.worldY += speed - gp.cat.moveY;
-                this.worldX += -gp.cat.moveX;
-                break;
-            case "left" : 
-                this.worldX -= speed + gp.cat.moveX ;
-                this.worldY += -gp.cat.moveY;
-                break;
-            case "right" : 
-                this.worldX += speed - gp.cat.moveX ;
-                this.worldY += gp.cat.moveY;
-                break;
-        }
-        }
-        
-        
-        // Check collision with walls and furniture
-        if (gp.collisionChecker.checkCollision(worldX, worldY, gp.tileSize/2, gp.tileSize/2)){
-            this.worldX = prevX;
-            this.worldY = prevY;
-            changeDirection();
-        }
-        
-        
-        // Animation
-        spriteCounter++;
-        if(spriteCounter > 5){
-            spriteNum = (spriteNum % 5) + 1;
-            spriteCounter = 0;
-        }
-        
-        
-        // Periodically change direction
-        directionCounter++;
-        if(directionCounter >= moveInterval){
-            if(random.nextInt(100) < 30){
+            //Save previous position for colission checking
+            int prevX = worldX;
+            int prevY = worldY;
+            // Move based on current direction
+            if (gp.mouseManager.checkCatCollision(gp.cat.worldX, gp.cat.worldY, gp.tileSize)) {
+                // Cat is in the way, so change direction
+                changeDirection();
+            }else{
+                switch(direction){
+                    case "up" : 
+                        this.worldY -= speed + gp.cat.moveY;
+                         this.worldX += gp.cat.moveX;
+                        break;
+                    case "down" : 
+                        this.worldY += speed - gp.cat.moveY;
+                        this.worldX += -gp.cat.moveX;
+                        break;
+                    case "left" : 
+                        this.worldX -= speed + gp.cat.moveX ;
+                        this.worldY += -gp.cat.moveY;
+                        break;
+                    case "right" : 
+                        this.worldX += speed - gp.cat.moveX ;
+                        this.worldY += gp.cat.moveY;
+                        break;
+                }
+            }
+
+            // Check collision with walls and furniture
+            if (gp.collisionChecker.checkCollision(worldX, worldY, gp.tileSize/2, gp.tileSize/2)){
+                this.worldX = prevX;
+                this.worldY = prevY;
                 changeDirection();
             }
-            directionCounter = 0;
-        }
+
+            // Animation
+            spriteCounter++;
+            if(spriteCounter > 5){
+                spriteNum = (spriteNum % 5) + 1;
+                spriteCounter = 0;
+            }
+
+            // Periodically change direction
+            directionCounter++;
+            if(directionCounter >= moveInterval){
+                if(random.nextInt(100) < 30){
+                    changeDirection();
+                }
+                directionCounter = 0;
+            }
         }
     }
     
-    public void draw(Graphics2D g2){
-        if(!alive) return;
-        
+    public void draw(Graphics2D g2) {
+        if (!alive) return;
+
         BufferedImage image = null;
-        switch(direction){
-             case "up":
-                if(spriteNum == 1){
-                    image = up1;
-                }
-                if(spriteNum == 2){
-                    image = up2;
-                }
-                if(spriteNum == 3){
-                    image = up3;
-                }
-                if(spriteNum == 4){
-                    image = up4;
-                }
-                if(spriteNum == 5){
-                    image = up5;
-                }
-                
+
+        switch (direction) {
+            case "up":
+                if (spriteNum == 1) image = up1;
+                else if (spriteNum == 2) image = up2;
+                else if (spriteNum == 3) image = up3;
+                else if (spriteNum == 4) image = up4;
+                else if (spriteNum == 5) image = up5;
                 break;
+
             case "down":
-                if(spriteNum == 1){
-                    image = down1;
-                }
-                if(spriteNum == 2){
-                    image = down2;
-                }
-                if(spriteNum == 3){
-                    image = down3;
-                }
-                if(spriteNum == 4){
-                    image = down4;
-                }
-                if(spriteNum == 5){
-                    image = down5;
-                }
-                
+                if (spriteNum == 1) image = down1;
+                else if (spriteNum == 2) image = down2;
+                else if (spriteNum == 3) image = down3;
+                else if (spriteNum == 4) image = down4;
+                else if (spriteNum == 5) image = down5;
                 break;
+
             case "left":
-                if(spriteNum == 1){
-                    image = left1;
-                }
-                if(spriteNum == 2){
-                    image = left2;
-                }
-                if(spriteNum == 3){
-                    image = left3;
-                }
-                if(spriteNum == 4){
-                    image = left4;
-                }if(spriteNum == 5){
-                    image = left5;
-                }
-                
+                if (spriteNum == 1) image = left1;
+                else if (spriteNum == 2) image = left2;
+                else if (spriteNum == 3) image = left3;
+                else if (spriteNum == 4) image = left4;
+                else if (spriteNum == 5) image = left5;
                 break;
+
             case "right":
-                if(spriteNum == 1){
-                    image = right1;
-                }
-                if(spriteNum == 2){
-                    image = right2;
-                }
-                if(spriteNum == 3){
-                    image = right3;
-                }
-                if(spriteNum == 4){
-                    image = right4;
-                }
-                if(spriteNum == 5){
-                    image = right5;
-                }
-                
+                if (spriteNum == 1) image = right1;
+                else if (spriteNum == 2) image = right2;
+                else if (spriteNum == 3) image = right3;
+                else if (spriteNum == 4) image = right4;
+                else if (spriteNum == 5) image = right5;
                 break;
         }
-        
+
         int worldStartX = gp.cat.worldX - gp.cat.screenX;
         int worldStartY = gp.cat.worldY - gp.cat.screenY;
-        
-//        System.out.println("x screen:" + worldStartX + " y screen: " + worldStartY);
-        
-        g2.drawImage(image, worldX-worldStartX, worldY-worldStartY, gp.tileSize/2,gp.tileSize/2,null);
+
+        //System.out.println("x screen:" + worldStartX + " y screen: " + worldStartY);
+        if (image != null) {
+            g2.drawImage(image, worldX - worldStartX, worldY - worldStartY, gp.tileSize / 2, gp.tileSize / 2, null);
+        }
     }
-    
+
     @Override
     public void run(){
         while(alive){

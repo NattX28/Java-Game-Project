@@ -1,7 +1,5 @@
 package entity;
 
-import java.awt.Color;
-
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,7 +20,7 @@ public class Cat extends Entity {
     
     private long slowStartTime = 0;
     private boolean isSlowed = false;
-    private static final long SLOW_DURATION = 1000; // 2 seconds (2000 millisecond)
+    private static final long SLOW_DURATION = 1000; // 1 seconds (1000 millisecond)
     private static final int NORMAL_SPEED = 4;
     private static final int SLOW_SPEED = 3;
     
@@ -89,70 +87,67 @@ public class Cat extends Entity {
         }
     }
     
-    
-    
     @Override
-    public void update(){
-        if(gp.getGameState() == GamePanel.GameState.PLAYING){
+    public void update() {
+        if (gp.getGameState() == GamePanel.GameState.PLAYING) {
             moveX = 0;
             moveY = 0;
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
-            // Save current postion in case we need to revert due to collision
-            int prevX = worldX;
-            int prevY = worldY;
+
+            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+                // Save current position in case of collision
+                int prevX = worldX;
+                int prevY = worldY;
+                
+                updateSpeed();
+                
+                if (keyH.upPressed) {
+                    direction = "up";
+                    worldY -= speed;
+                    moveY = -0;
+                } else if (keyH.downPressed) {
+                    direction = "down";
+                    worldY += speed;
+                    moveY = 0;
+                } else if (keyH.leftPressed) {
+                    direction = "left";
+                    worldX -= speed;
+                    moveX = -0;
+                } else if (keyH.rightPressed) {
+                    direction = "right";
+                    worldX += speed;
+                    moveX = 0;
+                }
+                
+                // Check for collision and revert position if necessary
+                if (gp.collisionChecker.checkCollision(worldX, worldY, gp.tileSize - 8, gp.tileSize - 8)) {
+                    worldX = prevX;
+                    worldY = prevY;
+                    
+                    // Slow down upon collision
+                    if (!isSlowed) {
+                        isSlowed = true;
+                        speed = SLOW_SPEED;
+                        slowStartTime = System.currentTimeMillis();
+                    }
+                }
+                
+                // Check for collision with the mouse
+                if (gp.mouseManager.checkCatCollision(worldX, worldY, gp.tileSize)) {
+                    score++;
+                }
             
-            updateSpeed();
-            
-            if(keyH.upPressed == true){
-                direction = "up";
-                worldY -= speed;
-                moveY = -0;
-            }else if(keyH.downPressed == true){
-                direction = "down";
-                worldY += speed;
-                moveY = 0;
-            }else if(keyH.leftPressed == true){
-                direction = "left";
-                worldX -= speed;
-                moveX = -0;
-            }else if(keyH.rightPressed == true){
-                direction = "right";
-                worldX += speed;
-                moveX = 0;
-            }
-            
-//            System.out.println("X: " + worldX + " Y: " + worldY);
-             //Check collision with new position
-            if(gp.collisionChecker.checkCollision(worldX, worldY, gp.tileSize - 8, gp.tileSize - 8)) {
-                worldX = prevX;
-                worldY = prevY;
-                // if collison count new down speed
-                if (!isSlowed) {
-                    isSlowed = true;
-                    speed = SLOW_SPEED;
-                    slowStartTime = System.currentTimeMillis();
+                // Update animation
+                spriteCounter++;
+                if (spriteCounter > 5) {
+                    spriteNum = (spriteNum % 5) + 1;
+                    spriteCounter = 0;
                 }
             }
-            
-            if (gp.mouseManager.checkCatCollision(worldX, worldY, gp.tileSize)) {
-                score++;
-            }
-        
-        // Update animation
-        spriteCounter++;
-        if(spriteCounter > 5) {
-            spriteNum = (spriteNum % 5) + 1;
-            spriteCounter = 0;
         }
-       }
-    }
-        
-        
     }
     
     public void draw(Graphics2D g2){            
         BufferedImage image = null;
-        
         switch(direction){
             case "up":
                 if(spriteNum == 1) image = up1;
@@ -183,8 +178,6 @@ public class Cat extends Entity {
                 if(spriteNum == 5) image = right5;
                 break;
         }
-        
         g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize, null);
     }
-
 }

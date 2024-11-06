@@ -3,48 +3,53 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandler implements KeyListener{
+public class KeyHandler implements KeyListener {
+    
+    // Flags to track key press states
     public boolean upPressed, downPressed, leftPressed, rightPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {
+        // Not used, but required by the KeyListener interface
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        
-        if(code == KeyEvent.VK_W){
-            upPressed = true;
-        }
-        if(code == KeyEvent.VK_S){
-            downPressed = true;
-        }
-        if(code == KeyEvent.VK_A){
-            leftPressed = true;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = true;
+
+        switch (code) {
+            case KeyEvent.VK_W:
+                upPressed = true;
+                break;
+            case KeyEvent.VK_S:
+                downPressed = true;
+                break;
+            case KeyEvent.VK_A:
+                leftPressed = true;
+                break;
+            case KeyEvent.VK_D:
+                rightPressed = true;
+                break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        
-        if(code == KeyEvent.VK_W){
-            upPressed = false;
-        }
-        if(code == KeyEvent.VK_S){
-            downPressed = false;
-        }
-        if(code == KeyEvent.VK_A){
-            leftPressed = false;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = false;
+
+        switch (code) {
+            case KeyEvent.VK_W:
+                upPressed = false;
+                break;
+            case KeyEvent.VK_S:
+                downPressed = false;
+                break;
+            case KeyEvent.VK_A:
+                leftPressed = false;
+                break;
+            case KeyEvent.VK_D:
+                rightPressed = false;
+                break;
         }
     }
-    
-    
 }

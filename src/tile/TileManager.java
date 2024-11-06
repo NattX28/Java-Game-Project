@@ -1,6 +1,5 @@
 package tile;
 
-
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -9,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
-
 
 public class TileManager {
     private static final int FLIPPED_HORIZONTALLY_FLAG = 0x80000000; // Bit 31

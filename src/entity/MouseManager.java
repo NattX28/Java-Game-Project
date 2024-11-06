@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import main.GamePanel;
 
-
-
 public class MouseManager {
     GamePanel gp;
     ArrayList<Mouse> mice;
@@ -42,8 +40,7 @@ public class MouseManager {
         // update all mice
         for(Mouse mouse : mice){
             mouse.update();    
-        }
-        
+        }   
     }
     
     public void spawnMouse(){
