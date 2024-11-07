@@ -67,7 +67,7 @@ public class MouseManager {
                 {r.nextInt(1880,2080),r.nextInt(1440,1820)},
                 {r.nextInt(680,880),r.nextInt(1500,1820)},
                 {r.nextInt(2380,2670),r.nextInt(1480,1520)},
-                {r.nextInt(2380,2670),r.nextInt(1740,1780)},
+                {r.nextInt(2380,2520),r.nextInt(1740,1780)},
                 {r.nextInt(1880,2220),r.nextInt(850,1120)},  
             };
             int[] spawnPoint = spawnPoints[random.nextInt(spawnPoints.length)];
