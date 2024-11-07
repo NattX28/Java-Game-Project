@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GameState gameState = GameState.TITLE;
     // Setting for each level
     public int level = 1;
-    private int timeRemaining = 120; // 60 second
+    private int timeRemaining = 120; // 120 second
     public int targetMicePerLevel = 20;
 
     // Button positions and sizes for custom-drawn buttons

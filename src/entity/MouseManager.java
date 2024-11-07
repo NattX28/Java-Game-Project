@@ -62,13 +62,13 @@ public class MouseManager {
             spawnedMiceCount++;
         }else if(gp.level == 2){
             int [][] spawnPoints = {
-                {r.nextInt(1150,1200),r.nextInt(1000,1150)},
-                {r.nextInt(1200,1400),r.nextInt(1480,1800)},
-                {r.nextInt(1500,1800),r.nextInt(1730,1780)},
-                {r.nextInt(2100,2200),r.nextInt(710,800)},
-                {r.nextInt(640,800),r.nextInt(1490,1600)},
-                {r.nextInt(2460,2600),r.nextInt(1515,1530)},
-                {r.nextInt(2370,2550),r.nextInt(1770,1790)},
+                {r.nextInt(1060,1630),r.nextInt(800,1100)},
+                {r.nextInt(1190,1460),r.nextInt(1440,1820)},
+                {r.nextInt(1880,2080),r.nextInt(1440,1820)},
+                {r.nextInt(680,880),r.nextInt(1500,1820)},
+                {r.nextInt(2380,2670),r.nextInt(1480,1520)},
+                {r.nextInt(2380,2670),r.nextInt(1740,1780)},
+                {r.nextInt(1880,2220),r.nextInt(850,1120)},  
             };
             int[] spawnPoint = spawnPoints[random.nextInt(spawnPoints.length)];
             Mouse newMouse = new Mouse(gp,spawnPoint[0], spawnPoint[1]);
@@ -78,16 +78,18 @@ public class MouseManager {
         }else if(gp.level == 3){
             int [][] spawnPoints = {
                 {r.nextInt(1150,1200),r.nextInt(1000,1150)},
-                {r.nextInt(1200,1400),r.nextInt(1480,1800)},
-                {r.nextInt(1500,1800),r.nextInt(1730,1780)},
-                {r.nextInt(910,1950),r.nextInt(2048,2100)},
-                {r.nextInt(750,1250),r.nextInt(2380,2400)},
-                {r.nextInt(1900,2100),r.nextInt(710,800)},
-                {r.nextInt(640,900),r.nextInt(1490,1600)},
-                {r.nextInt(2460,2600),r.nextInt(1515,1530)},
-                {r.nextInt(2370,2550),r.nextInt(1770,1790)},
-                {r.nextInt(1416,2050),r.nextInt(2100,2150)},
-                {r.nextInt(1500,1750),r.nextInt(2750,2800)},
+                {r.nextInt(710,830),r.nextInt(1530,1726)},
+                {r.nextInt(1200,1420),r.nextInt(1500,1750)},
+                {r.nextInt(1275,1980),r.nextInt(1740,1780)},
+                {r.nextInt(1880,2020),r.nextInt(1460,1740)},
+                {r.nextInt(2440,2660),r.nextInt(1490,1520)},
+                {r.nextInt(2400,2550),r.nextInt(1730,1800)},
+                {r.nextInt(690,1000),r.nextInt(2140,2170)},
+                {r.nextInt(1400,1930),r.nextInt(2070,2100)},
+                {r.nextInt(1750,2130),r.nextInt(2390,2420)},
+                {r.nextInt(730,1270),r.nextInt(2370,2420)},
+                {r.nextInt(1440,1750),r.nextInt(2720,2850)},
+                {r.nextInt(1880,2200),r.nextInt(890,1100)},  
             };
             int[] spawnPoint = spawnPoints[random.nextInt(spawnPoints.length)];
             Mouse newMouse = new Mouse(gp,spawnPoint[0], spawnPoint[1]);
